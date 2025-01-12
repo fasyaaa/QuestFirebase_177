@@ -52,6 +52,11 @@ class InsertViewModel(private val mhs: RepositoryMhs): ViewModel() {
             uiState = FormState.Error("Data tidak valid")
         }
     }
+
+    fun resetForm(){
+        uiEvent = InsertUiState()
+        uiState =  FormState.Idle
+    }
 }
 
 data class InsertUiState(
