@@ -171,7 +171,7 @@ fun MhsLayout(
                         .fillMaxWidth()
                         .clickable {},
                     onDeleteClick = {
-                        onDeleteClick(mhs)
+                        onDeleteClick(it)
                     }
                 )
             }
