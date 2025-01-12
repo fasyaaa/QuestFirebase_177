@@ -1,6 +1,28 @@
 package com.example.pam14.ui.home.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
 import com.example.pam14.model.Mahasiswa
+import com.example.pam14.repository.RepositoryMhs
+
+class InsertViewModel(private val mhs: RepositoryMhs): ViewModel(){
+    var uiEvent: InsertUiState by mutableStateOf(InsertUiState())
+        private set
+
+    var uiState: FormState by mutableStateOf(FormState.idle)
+    private set
+
+    fun updateState(mahasiswaEvent: MahasiswaEvent){
+        uiEvent = uiEvent.copy(
+            insertUiEvent = mahasiswaEvent,
+        )
+    }
+
+
+
+}
 
 data class InsertUiState(
     val insertUiEvent: MahasiswaEvent = MahasiswaEvent(),
