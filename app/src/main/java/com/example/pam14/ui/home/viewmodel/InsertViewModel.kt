@@ -7,32 +7,37 @@ import androidx.lifecycle.ViewModel
 import com.example.pam14.model.Mahasiswa
 import com.example.pam14.repository.RepositoryMhs
 
-class InsertViewModel(private val mhs: RepositoryMhs): ViewModel(){
+class InsertViewModel(private val mhs: RepositoryMhs): ViewModel() {
     var uiEvent: InsertUiState by mutableStateOf(InsertUiState())
         private set
 
     var uiState: FormState by mutableStateOf(FormState.idle)
-    private set
+        private set
 
-    fun updateState(mahasiswaEvent: MahasiswaEvent){
+    fun updateState(mahasiswaEvent: MahasiswaEvent) {
         uiEvent = uiEvent.copy(
             insertUiEvent = mahasiswaEvent,
         )
     }
 
-    fun validateFields(): Boolean{}
-    val event = uiEvent.insertUiEvent
-    val  errorState = FormErrorState(
-        nim = if(event.nim.isNotEmpty()) null else "NIM tidak boleh kosong",
-        nama = if(event.nama.isNotEmpty()) null else "Nama tidak boleh kosong",
-        jenisKelamin = if(event.jenisKelamin.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
-        alamat = if(event.alamat.isNotEmpty()) null else "Alamat tidak boleh kosong",
-        kelas = if(event.kelas.isNotEmpty()) null else "Kelas tidak boleh kosong",
-        angkatan = if(event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong",
-    )
+    fun validateFields(): Boolean {
+        val event = uiEvent.insertUiEvent
+        val errorState = FormErrorState(
+            nim = if (event.nim.isNotEmpty()) null else "NIM tidak boleh kosong",
+            nama = if (event.nama.isNotEmpty()) null else "Nama tidak boleh kosong",
+            jenisKelamin = if (event.jenisKelamin.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
+            alamat = if (event.alamat.isNotEmpty()) null else "Alamat tidak boleh kosong",
+            kelas = if (event.kelas.isNotEmpty()) null else "Kelas tidak boleh kosong",
+            angkatan = if (event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong",
+        )
 
-    uiEvent = uiEvent.copy(isEntryValid = errorState)
-    return errorState.isValid()
+        uiEvent = uiEvent.copy(isEntryValid = errorState)
+        return errorState.isValid()
+    }
+
+    fun insertMhs(){
+
+    }
 }
 
 data class InsertUiState(
