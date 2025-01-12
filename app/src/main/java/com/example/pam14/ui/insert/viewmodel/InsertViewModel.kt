@@ -1,4 +1,4 @@
-package com.example.pam14.ui.home.viewmodel
+package com.example.pam14.ui.insert.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +55,7 @@ class InsertViewModel(private val mhs: RepositoryMhs): ViewModel() {
 
     fun resetForm(){
         uiEvent = InsertUiState()
-        uiState =  FormState.Idle
+        uiState = FormState.Idle
     }
 
     fun resetSnackBarMessage(){
