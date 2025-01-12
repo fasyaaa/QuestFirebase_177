@@ -57,6 +57,10 @@ class InsertViewModel(private val mhs: RepositoryMhs): ViewModel() {
         uiEvent = InsertUiState()
         uiState =  FormState.Idle
     }
+
+    fun resetSnackBarMessage(){
+        uiState = FormState.idle
+    }
 }
 
 data class InsertUiState(
