@@ -30,6 +30,9 @@ class InsertViewModel(private val mhs: RepositoryMhs): ViewModel(){
         kelas = if(event.kelas.isNotEmpty()) null else "Kelas tidak boleh kosong",
         angkatan = if(event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong",
     )
+
+    uiEvent = uiEvent.copy(isEntryValid = errorState)
+    return errorState.isValid()
 }
 
 data class InsertUiState(
