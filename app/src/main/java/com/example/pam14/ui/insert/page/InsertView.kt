@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -23,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pam14.ui.PenyediaViewModel
+import com.example.pam14.ui.insert.viewmodel.FormErrorState
 import com.example.pam14.ui.insert.viewmodel.FormState
 import com.example.pam14.ui.insert.viewmodel.InsertUiState
 import com.example.pam14.ui.insert.viewmodel.InsertViewModel
@@ -135,5 +137,34 @@ fun InsertBodyMhs(
                 Text("Add")
             }
         }
+    }
+}
+
+@Composable
+fun FormMahasiswa(
+    mahasiswaEvent: MahasiswaEvent = MahasiswaEvent(),
+    onValueChange: (MahasiswaEvent) -> Unit,
+    errorState: FormErrorState = FormErrorState(),
+    modifier: Modifier = Modifier
+){
+    val jenisKelamin = listOf("Laki-Laki", "Perempuan")
+    val kelas = listOf("A", "B", "C", "D", "E")
+
+    Column (modifier = modifier.fillMaxWidth()
+    ){
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.nama,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(nama = it))
+            },
+            label = { Text("Nama")},
+            isError = errorState.nama != null,
+            placeholder = { Text("Masukkan nama")},
+        )
+        Text(
+            text = errorState.nama ?: "",
+            color = Color.Red
+        )
     }
 }
