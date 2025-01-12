@@ -44,6 +44,9 @@ class NetworkRepositoryMhs(private val firestore: FirebaseFirestore): Repository
                     trySend(mhs)
                 }
             }
+        awaitClose {
+            mhsDocument.remove()
+        }
     }
 
     override suspend fun deleteMhs(mahasiswa: Mahasiswa) {
