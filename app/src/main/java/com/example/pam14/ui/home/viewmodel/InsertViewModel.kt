@@ -13,7 +13,7 @@ class InsertViewModel(private val mhs: RepositoryMhs): ViewModel() {
     var uiEvent: InsertUiState by mutableStateOf(InsertUiState())
         private set
 
-    var uiState: FormState by mutableStateOf(FormState.idle)
+    var uiState: FormState by mutableStateOf(FormState.Idle)
         private set
 
     fun updateState(mahasiswaEvent: MahasiswaEvent) {
@@ -67,7 +67,7 @@ sealed class FormState {
     object Idle : FormState()
     object Loading : FormState()
     data class Success(val message: String) : FormState()
-    data class Error(val message: String) : FormState()0
+    data class Error(val message: String) : FormState()
 }
 
 data class InsertUiState(
