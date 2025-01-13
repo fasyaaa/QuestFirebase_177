@@ -238,5 +238,9 @@ fun FormMahasiswa(
             }
         }
     }
+    Text(
+        text = errorState.kelas ?: "",
+        color = Color.Red
+    )
 
 }
