@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
@@ -39,6 +40,7 @@ import com.example.pam14.ui.insert.viewmodel.MahasiswaEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InsertMhsView(
     onBack: () -> Unit,
@@ -258,5 +260,4 @@ fun FormMahasiswa(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
     )
     Text(text = errorState.angkatan ?: "", color = Color.Red)
-
 }
