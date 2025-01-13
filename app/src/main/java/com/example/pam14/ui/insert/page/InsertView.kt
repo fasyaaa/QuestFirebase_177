@@ -1,5 +1,6 @@
 package com.example.pam14.ui.insert.page
 
+import android.graphics.Paint.Align
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -204,4 +205,38 @@ fun FormMahasiswa(
             }
         }
     }
+    Text(
+        text = errorState.jenisKelamin ?: "",
+        color = Color.Red
+    )
+
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = mahasiswaEvent.alamat,
+        onValueChange = {
+            onValueChange(mahasiswaEvent.copy(alamat = it))
+        },
+        label = { Text("Alamat")},
+        isError = errorState.alamat != null,
+        placeholder = { Text("Masukkan alamat")}
+    )
+    Text(text = errorState.alamat ?: "", color = Color.Red)
+    Spacer(modifier = Modifier.height(16.dp))
+    Text(text = "Kelas")
+    Row {
+        kelas.forEach {
+            kelas ->
+            Row (verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start){
+                RadioButton(
+                    selected = mahasiswaEvent.kelas == kelas,
+                    onClick = {
+                        onValueChange(mahasiswaEvent.copy(kelas = kelas))
+                    }
+                )
+                Text(text = kelas)
+            }
+        }
+    }
+
 }
