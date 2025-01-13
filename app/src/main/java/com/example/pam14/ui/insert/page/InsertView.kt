@@ -153,21 +153,22 @@ fun FormMahasiswa(
     onValueChange: (MahasiswaEvent) -> Unit,
     errorState: FormErrorState = FormErrorState(),
     modifier: Modifier = Modifier
-){
+) {
     val jenisKelamin = listOf("Laki-Laki", "Perempuan")
     val kelas = listOf("A", "B", "C", "D", "E")
 
-    Column (modifier = modifier.fillMaxWidth()
-    ){
+    Column(
+        modifier = modifier.fillMaxWidth()
+    ) {
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = mahasiswaEvent.nama,
             onValueChange = {
                 onValueChange(mahasiswaEvent.copy(nama = it))
             },
-            label = { Text("Nama")},
+            label = { Text("Nama") },
             isError = errorState.nama != null,
-            placeholder = { Text("Masukkan nama")},
+            placeholder = { Text("Masukkan nama") },
         )
         Text(
             text = errorState.nama ?: "",
@@ -180,20 +181,21 @@ fun FormMahasiswa(
             onValueChange = {
                 onValueChange(mahasiswaEvent.copy(nim = it))
             },
-            label = { Text("NIM")},
+            label = { Text("NIM") },
             isError = errorState.nim != null,
-            placeholder = { Text("Masukkan NIM")},
+            placeholder = { Text("Masukkan NIM") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Text(text = errorState.nim ?: "", color = Color.Red)
 
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = "Jenis Kelamin")
-        Row (modifier = Modifier.fillMaxWidth()){
-            jenisKelamin.forEach {
-                jk ->
-                Row (verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start){
+        Row(modifier = Modifier.fillMaxWidth()) {
+            jenisKelamin.forEach { jk ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
                     RadioButton(
                         selected = mahasiswaEvent.jenisKelamin == jk,
                         onClick = {
@@ -216,18 +218,19 @@ fun FormMahasiswa(
         onValueChange = {
             onValueChange(mahasiswaEvent.copy(alamat = it))
         },
-        label = { Text("Alamat")},
+        label = { Text("Alamat") },
         isError = errorState.alamat != null,
-        placeholder = { Text("Masukkan alamat")}
+        placeholder = { Text("Masukkan alamat") }
     )
     Text(text = errorState.alamat ?: "", color = Color.Red)
     Spacer(modifier = Modifier.height(16.dp))
     Text(text = "Kelas")
     Row {
-        kelas.forEach {
-            kelas ->
-            Row (verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start){
+        kelas.forEach { kelas ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
                 RadioButton(
                     selected = mahasiswaEvent.kelas == kelas,
                     onClick = {
@@ -242,5 +245,18 @@ fun FormMahasiswa(
         text = errorState.kelas ?: "",
         color = Color.Red
     )
+
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = mahasiswaEvent.angkatan,
+        onValueChange = {
+            onValueChange(mahasiswaEvent.copy(angkatan = it))
+        },
+        label = { Text("Angkatan") },
+        isError = errorState.angkatan != null,
+        placeholder = { Text("Masukkan angkatan") },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+    )
+    Text(text = errorState.angkatan ?: "", color = Color.Red)
 
 }
