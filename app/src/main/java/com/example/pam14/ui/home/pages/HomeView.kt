@@ -50,7 +50,7 @@ fun HomeScreen(
     onDetailClick: (String) -> Unit = {},
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+//    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -75,7 +75,7 @@ fun HomeScreen(
             retryAction = { viewModel.getMhs() },
             modifier = Modifier.padding(innerPadding),
             onDetailClick = onDetailClick, onDeleteClick = {
-                viewModel.getMhs()
+                viewModel.deleteMhs(it)
             }
         )
     }
@@ -90,29 +90,30 @@ fun HomeStatus(
     onDetailClick: (String) -> Unit,
     onDeleteClick: (Mahasiswa) -> Unit = {},
 ){
-    var deleteConfirmationRequired by rememberSaveable { mutableStateOf<Mahasiswa?>(null) }
+//    var deleteConfirmationRequired by rememberSaveable { mutableStateOf<Mahasiswa?>(null) }
     when (homeUiState) {
         is HomeUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
 
         is HomeUiState.Success -> {
             MhsLayout(
-                mahasiswa = homeUiState.data, modifier = modifier.fillMaxWidth(), onDetailClick ={
-                    onDetailClick(it)
+                mahasiswa = homeUiState.data, modifier = modifier.fillMaxWidth(),
+                onDetailClick ={
+                    onDetailClick(it.nim)
                 },
                 onDeleteClick = {
                     onDeleteClick(it)
                 }
             )
-            deleteConfirmationRequired?.let { data ->
-                DeleteConfirmationDialog(
-                    onDeleteConfirm = {
-                        onDeleteClick(data)
-                        deleteConfirmationRequired = null
-                    },
-                    onDeleteCancel = {
-                        deleteConfirmationRequired = null
-                    })
-            }
+//            deleteConfirmationRequired?.let { data ->
+//                DeleteConfirmationDialog(
+//                    onDeleteConfirm = {
+//                        onDeleteClick(data)
+//                        deleteConfirmationRequired = null
+//                    },
+//                    onDeleteCancel = {
+//                        deleteConfirmationRequired = null
+//                    })
+//            }
         }
         is HomeUiState.Error -> OnError(
             retryAction,
@@ -125,7 +126,12 @@ fun HomeStatus(
 
 @Composable
 fun OnLoading(modifier: Modifier = Modifier) {
-    Text("Loading Mas......")
+    Column(modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text("Loading Mas......")
+    }
 }
 
 @Composable
@@ -154,7 +160,7 @@ fun OnError(retryAction: () -> Unit,
 fun MhsLayout(
     mahasiswa: List<Mahasiswa>,
     modifier: Modifier = Modifier,
-    onDetailClick: (String) -> Unit,
+    onDetailClick: (Mahasiswa) -> Unit,
     onDeleteClick: (Mahasiswa) -> Unit = {},
 ){
     LazyColumn(
@@ -162,20 +168,18 @@ fun MhsLayout(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(
-            items = mahasiswa,
-            itemContent = { mhs ->
+        items(mahasiswa)
+            { mhs ->
                 MhsCard(
                     mahasiswa = mhs,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable {},
+                        .clickable {onDetailClick(mhs)},
                     onDeleteClick = {
-                        onDeleteClick(it)
+                        onDeleteClick(mhs)
                     }
                 )
             }
-        )
     }
 }
 
@@ -191,8 +195,7 @@ fun MhsCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Column(
-            modifier = Modifier
-                .padding(16.dp),
+            modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(

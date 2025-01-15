@@ -9,15 +9,8 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 class NetworkRepositoryMhs(private val firestore: FirebaseFirestore): RepositoryMhs{
-    override suspend fun insertMhs(mahasiswa: Mahasiswa) {
-        try {
-            firestore.collection("Mahasiswa").add(mahasiswa).await()
-        } catch (e: Exception){
-            throw Exception("Gagal menambahkan data mahasiswa: ${e.message}")
-        }
-    }
 
-    override fun getAllMhs(): Flow<List<Mahasiswa>> = callbackFlow {
+    override suspend fun getAllMhs(): Flow<List<Mahasiswa>> = callbackFlow {
 //        ambil data dari firestore db mahasiswa
         val mhsCollection = firestore.collection("Mahasiswa")
             .orderBy("nim", Query.Direction.DESCENDING)
@@ -36,7 +29,7 @@ class NetworkRepositoryMhs(private val firestore: FirebaseFirestore): Repository
         }
     }
 
-    override fun getMhs(nim: String): Flow<Mahasiswa> = callbackFlow {
+    override suspend fun getMhs(nim: String): Flow<Mahasiswa> = callbackFlow {
         val mhsDocument = firestore.collection("Mahasiswa")
             .document(nim).addSnapshotListener { value, error ->
                 if (value != null){
@@ -46,6 +39,14 @@ class NetworkRepositoryMhs(private val firestore: FirebaseFirestore): Repository
             }
         awaitClose {
             mhsDocument.remove()
+        }
+    }
+
+    override suspend fun insertMhs(mahasiswa: Mahasiswa) {
+        try {
+            firestore.collection("Mahasiswa").add(mahasiswa).await()
+        } catch (e: Exception){
+            throw Exception("Gagal menambahkan data mahasiswa: ${e.message}")
         }
     }
 

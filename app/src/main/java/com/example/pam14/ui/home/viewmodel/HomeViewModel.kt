@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class HomeViewModel (private val repositoryMhs: RepositoryMhs): ViewModel(){
+class HomeViewModel (private val mhs: RepositoryMhs): ViewModel(){
     var mhsUiState: HomeUiState by mutableStateOf(HomeUiState.Loading)
         private set
 
@@ -21,7 +21,7 @@ class HomeViewModel (private val repositoryMhs: RepositoryMhs): ViewModel(){
 
     fun getMhs() {
         viewModelScope.launch {
-           repositoryMhs.getAllMhs()
+           mhs.getAllMhs()
                .onStart {
                mhsUiState = HomeUiState.Loading
                  }
@@ -41,7 +41,7 @@ class HomeViewModel (private val repositoryMhs: RepositoryMhs): ViewModel(){
     fun deleteMhs(mahasiswa: Mahasiswa){
         viewModelScope.launch {
             try {
-                repositoryMhs.deleteMhs(mahasiswa)
+                mhs.deleteMhs(mahasiswa)
             } catch (e: Exception){
                 mhsUiState = HomeUiState.Error(e)
             }

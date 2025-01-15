@@ -1,5 +1,7 @@
 package com.example.pam14.ui.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -9,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.pam14.ui.home.pages.HomeScreen
 import com.example.pam14.ui.insert.page.InsertMhsView
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun PengelolaHalaman(
     modifier: Modifier,
@@ -22,14 +25,15 @@ fun PengelolaHalaman(
         composable(DestinasiHome.route){
             HomeScreen(
                 navigateToltemEntry = {
-                    navController.navigate(DestinasiHome.route)
+                    navController.navigate(DestinasiInsert.route)
                 },
             )
         }
-
-        composable(DestinasiInsert.route) {
+        composable(DestinasiInsert.route){
             InsertMhsView(
-                onBack = {navController.popBackStack()},
+                onBack = {
+                    navController.popBackStack()
+                },
                 onNavigate = {
                     navController.navigate(DestinasiHome.route)
                 }

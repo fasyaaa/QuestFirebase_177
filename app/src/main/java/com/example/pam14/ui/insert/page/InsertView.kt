@@ -1,6 +1,8 @@
 package com.example.pam14.ui.insert.page
 
 import android.graphics.Paint.Align
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,6 +43,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun InsertMhsView(
     onBack: () -> Unit,
@@ -48,11 +51,12 @@ fun InsertMhsView(
     modifier: Modifier = Modifier,
     viewModel: InsertViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ){
-    val uiState = viewModel.uiState //
-    val uiEvent = viewModel.uiEvent
+    val uiState = viewModel.uiState //state utama untuk loading
+    val uiEvent = viewModel.uiEvent //state untuk form data validasi
     val snackbarHostState = remember {SnackbarHostState()}
     val coroutineScope = rememberCoroutineScope()
 
+//    Observasi perubahan state utk snackbar & navigasi
     LaunchedEffect(uiState) {
         when (uiState){
             is FormState.Success -> {
