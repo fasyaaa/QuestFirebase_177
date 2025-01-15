@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.pam14.ui.detail.pages.DetailView
 import com.example.pam14.ui.home.pages.HomeScreen
 import com.example.pam14.ui.insert.page.InsertMhsView
 
@@ -52,12 +53,12 @@ fun PengelolaHalaman(
             )
         ){ backStackEntry ->
             val nim = backStackEntry.arguments?.getString("nim")
-//            nim?.let {
-//                DetailView(
-//                    nim = it,
-//                    navigateBack = {navController.popBackStack()}
-//                )
-//            }
+            nim?.let {
+                DetailView(
+                    nim = it,
+                    navigateBack = {navController.popBackStack()}
+                )
+            }
         }
     }
 }
