@@ -52,12 +52,12 @@ fun PengelolaHalaman(
             )
         ){ backStackEntry ->
             val nim = backStackEntry.arguments?.getString("nim")
-            nim?.let {
-                DetailView(
-                    nim = it,
-                    navigateBack = {navController.popBackStack()}
-                )
-            }
+//            nim?.let {
+//                DetailView(
+//                    nim = it,
+//                    navigateBack = {navController.popBackStack()}
+//                )
+//            }
         }
     }
 }
