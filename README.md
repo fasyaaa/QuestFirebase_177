@@ -8,6 +8,8 @@ Insert new
 Save after insert
 ![save2](https://github.com/user-attachments/assets/aecb06e9-6432-48b0-815f-fee0bd7a0dd9)
 
+Error detail (not done yet)
+<img width="1440" alt="Screenshot 2025-01-15 at 17 03 12" src="https://github.com/user-attachments/assets/a5a325a0-5817-4b17-bb19-fc26d461f297" />
 
 ---------------------------------------------------------------------------------------------
 HOME SCREEN
